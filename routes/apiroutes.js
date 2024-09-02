@@ -1,0 +1,16 @@
+const express = require('express')
+const route = express.Router()
+const userController = require('../Controller/userController')
+const { userauth } = require('../Middleware/userauth')
+const { upload } = require('../Middleware/filemanager') 
+
+route.post('/signup', userController.signup)
+route.post('/login', userController.login)
+route.get('/get_users', userauth, userController.get_users)
+route.get('/get_all_chat/:id', userauth, userController.get_all_chat)
+route.post('/save_msg', userauth, userController.save_msg)
+route.post('/search_user', userauth, userController.search_user)
+route.post('/uploadstatus', userauth,upload.single('fileupload'), userController.uploadStatus)
+route.post('/get_status', userauth, userController.get_status)
+route.post('/deletestatus', userauth, userController.deletestatus)
+module.exports = route
